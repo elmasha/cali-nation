@@ -13,7 +13,7 @@
         >
       </div>
     </div>
-    <div class="container text-center"><h3>Order info</h3></div>
+    <div class="container text-center"><h3>Order Info</h3></div>
     <v-row>
       <v-col cols="12" md="12" lg="12" sm="12">
         <v-card class="mx-auto" light min-width="300" elevation="0">
