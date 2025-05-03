@@ -1712,7 +1712,7 @@ export default {
 <style>
 #CountCart {
     color: black;
-    padding: 6px;
+    padding: 5px;
     border-radius: 100px;
     border: none;
     background-color: #00DF82;
