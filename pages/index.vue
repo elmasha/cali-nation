@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-navigation-drawer v-model="drawer" mini-variant="120" :clipped="clipped" fixed expand-on-hover>
+    <v-navigation-drawer v-model="drawer"  :clipped="clipped" fixed expand-on-hover>
         <v-list>
             <v-list-item style="padding: 8px" v-show="auth_State">
 
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="pa-4">
                                     <v-item-group multiple row>
-                                        <v-item v-for="(ty, idt) in types" :key="idt">
+                                        <v-item  v-for="(ty, idt) in types" :key="idt">
                                             <v-chip style="margin: 2px" filter active-class="black--text" @click="fetchAll(ty.type)">
                                                 {{ ty.type }}
                                             </v-chip>
@@ -118,15 +118,16 @@
                                                                     </v-img>
                                                                 </v-carousel-item>
                                                                 <v-carousel-item>
-                                                                    <v-img :src="all_product.cloth_image" class="white--text align-start" height="300px" contain>
+                                                                    <v-img :src="checkImageCourosel(all_product.cloth_image,all_product.cloth_image2)" class="white--text align-start" height="300px" contain>
 
                                                                     </v-img>
                                                                 </v-carousel-item>
                                                                 <v-carousel-item>
-                                                                    <v-img :src="all_product.cloth_image" class="white--text align-start" height="300px" contain>
+                                                                    <v-img :src="checkImageCourosel(all_product.cloth_image,all_product.cloth_image3)" class="white--text align-start" height="300px" contain>
 
                                                                     </v-img>
                                                                 </v-carousel-item>
+
                                                             </v-carousel>
                                                         </div>
                                                         <v-row v-show="false">
@@ -388,12 +389,12 @@
                                                                     </v-img>
                                                                 </v-carousel-item>
                                                                 <v-carousel-item>
-                                                                    <v-img :src="cloth_image" class="white--text align-start" height="300px" contain>
+                                                                    <v-img :src="checkImageCourosel(cloth_image,cloth_image2)" class="white--text align-start" height="300px" contain>
 
                                                                     </v-img>
                                                                 </v-carousel-item>
                                                                 <v-carousel-item>
-                                                                    <v-img :src="cloth_image" class="white--text align-start" height="300px" contain>
+                                                                    <v-img :src="checkImageCourosel(cloth_image,cloth_image2)" class="white--text align-start" height="300px" contain>
 
                                                                     </v-img>
                                                                 </v-carousel-item>
@@ -635,6 +636,11 @@ export default {
     },
     computed: {},
     methods: {
+    checkImageCourosel(val1,val2){
+      if(val2 == null){
+        return val1;
+      }
+    },
         setPrice(val, val2) {
             this.totalItemPrice = 0;
             if (this.discount_state === true) {
