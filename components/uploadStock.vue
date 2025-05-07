@@ -50,7 +50,7 @@
 
             <br />
             <div>
-              <v-btn text @click="clearDropzone">Clear image</v-btn>
+              <v-btn text color="red" @click="clearDropzone">Clear image</v-btn>
             </div>
             <div class="d-flex text-center">
               <div>
