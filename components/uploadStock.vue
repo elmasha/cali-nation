@@ -3,47 +3,50 @@
     <div class="container">
       <v-row>
         <v-col cols="12" sm="12" md="12">
-
           <div class="container">
             <h2>Upload New Stock</h2>
           </div>
           <div>
-
-          <v-row>
-            <v-col cols="12" sm="6" md="6">
-              <div>
-              <dropzone
-                id="foo"
-                ref="el"
-                height="300"
-                :options="options"
-                @vdropzone-complete="afterCompletePoster"
-              ></dropzone>
-            </div>
-            </v-col>
-            <v-col cols="12" sm="6" md="6">
-              <v-row>
-                <v-col cols="12" sm="12" md="12"> <div>
-              <dropzone
-                id="foo"
-                ref="el"
-                height="300"
-                :options="options"
-                @vdropzone-complete="afterCompletePoster2"
-              ></dropzone>
-            </div></v-col>
-                <v-col cols="12" sm="12" md="12"> <div>
-              <dropzone
-                id="foo"
-                ref="el"
-                height="300"
-                :options="options"
-                @vdropzone-complete="afterCompletePoster3"
-              ></dropzone>
-            </div></v-col>
-              </v-row>
-            </v-col>
-          </v-row>
+            <v-row>
+              <v-col cols="12" sm="6" md="6">
+                <div>
+                  <h4>Main image</h4>
+                  <dropzone
+                    id="foo"
+                    ref="el"
+                    height="300"
+                    :options="options"
+                    @vdropzone-complete="afterCompletePoster"
+                  ></dropzone>
+                </div>
+              </v-col>
+              <v-col cols="12" sm="6" md="6">
+                <v-row>
+                  <v-col cols="12" sm="12" md="12">
+                    <div>
+                      <h4>image 2</h4>
+                      <dropzone
+                        id="foo"
+                        ref="el"
+                        height="300"
+                        :options="options"
+                        @vdropzone-complete="afterCompletePoster2"
+                      ></dropzone></div
+                  ></v-col>
+                  <v-col cols="12" sm="12" md="12">
+                    <div>
+                      <h4>image 3</h4>
+                      <dropzone
+                        id="foo"
+                        ref="el"
+                        height="300"
+                        :options="options"
+                        @vdropzone-complete="afterCompletePoster3"
+                      ></dropzone></div
+                  ></v-col>
+                </v-row>
+              </v-col>
+            </v-row>
 
             <br />
             <div>
@@ -188,6 +191,14 @@
                 label="Item Price"
               ></v-text-field>
 
+              <div class="d-flex" style="margin: 8px">
+                <span v-show="progressUPload"> {{ "Uploading....." }}</span>
+                <v-progress-linear
+                  v-show="progressUPload"
+                  indeterminate
+                  color="yellow darken-2"
+                ></v-progress-linear>
+              </div>
               <v-btn color="black" block class="white--text" @click="UploadItem">
                 Upload item
               </v-btn>
@@ -226,6 +237,7 @@ export default {
   },
   data() {
     return {
+      progressUPload: false,
       moment,
       waist_size: null,
       S: false,
@@ -625,12 +637,12 @@ export default {
       } else if (this.posterUrl == "") {
         this.snackbar2 = true;
         this.snackbarText2 = "Provide a item image 2";
-      }else if (this.posterUrl2 == "") {
-        this.snackbar2 = true;
-        this.snackbarText2 = "Provide a item image 3";
-      }else if (this.posterUrl3 == "") {
+      } else if (this.posterUrl2 == "") {
         this.snackbar2 = true;
         this.snackbarText2 = "Provide a item image";
+      } else if (this.posterUrl3 == "") {
+        this.snackbar2 = true;
+        this.snackbarText2 = "Provide a item image 3";
       } else if (this.cloth_name == "") {
         this.snackbar2 = true;
         this.snackbarText2 = "Provide a item name";
@@ -658,6 +670,7 @@ export default {
         console.log(uuid.v1());
         let ID = this.cloth_name + this.cloth_type + this.cloth_size;
         let ID2 = this.cloth_name + this.cloth_type;
+        this.progressUPload = true;
         db.collection("My_Stock")
           .doc(this.id)
           .set({
@@ -688,19 +701,21 @@ export default {
             discount: 0,
             discount_state: false,
             createdAt: this.moment(new Date()).calendar(),
-            timestamp:new Date(),
+            timestamp: new Date(),
           })
           .then((docRef) => {
             // this.dropState = true;
             this.snackbar = true;
-            this.snackbarText = "Document written";
+            this.snackbarText = "Item uploaded";
             this.UploadType();
+            this.progressUPload = false;
           })
           .catch((error) => {
             console.error("Error adding document: ", error);
             this.snackbar2 = true;
             this.dropState = true;
             this.snackbarText2 = error;
+            this.progressUPload = false;
           });
       }
     },
@@ -777,8 +792,8 @@ export default {
         await imageRef.put(file, metadata);
         var downloadURLP = await imageRef.getDownloadURL();
         this.images.push({ src: downloadURLP });
-        this.posterUrl = downloadURLP;
-        console.log("Image 2",this.posterUrl);
+        this.posterUrl2 = downloadURLP;
+        console.log("Image 2", this.posterUrl);
         this.snackbar = true;
         this.snackbarText = "Image Uploaded";
       } catch (error) {
@@ -801,7 +816,7 @@ export default {
         var downloadURLP = await imageRef.getDownloadURL();
         this.images.push({ src: downloadURLP });
         this.posterUrl3 = downloadURLP;
-        console.log("Image 3",this.posterUrl3);
+        console.log("Image 3", this.posterUrl3);
         this.snackbar = true;
         this.snackbarText = "Image Uploaded";
       } catch (error) {
@@ -809,7 +824,8 @@ export default {
         this.snackbarText2 = error;
         console.log(error);
       }
-    },async afterCompletePoster(upload2) {
+    },
+    async afterCompletePoster(upload2) {
       const storageRef = this.$fire.storage.ref();
       var imageNameP = uuid.v1();
       try {
@@ -823,7 +839,7 @@ export default {
         var downloadURLP = await imageRef.getDownloadURL();
         this.images.push({ src: downloadURLP });
         this.posterUrl = downloadURLP;
-        console.log("Image 1",this.posterUrl);
+        console.log("Image 1", this.posterUrl);
         this.snackbar = true;
         this.snackbarText = "Image Uploaded";
       } catch (error) {

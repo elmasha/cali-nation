@@ -639,6 +639,8 @@ export default {
     checkImageCourosel(val1,val2){
       if(val2 == null){
         return val1;
+      }else{
+        return val2;
       }
     },
         setPrice(val, val2) {
