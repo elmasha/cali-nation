@@ -19,7 +19,7 @@
         <v-app-bar-nav-icon color="black" @click.stop="drawer = !drawer" />
         <v-spacer />
         <nuxt-link style="text-decoration: none;" to="/">
-            <v-img :src="header" contain height="40" max-width="150"> </v-img>
+            <v-img :src="header" contain height="200" max-width="100"> </v-img>
         </nuxt-link>
 
         <v-spacer />
@@ -36,6 +36,7 @@
         <v-icon>mdi-logout</v-icon>
       </v-btn> -->
     </v-app-bar>
+    <br>
     <v-row justify="start" align="start">
         <v-col cols="12" sm="12" md="12">
             <v-tabs centered center-active align-content-start background-color="white" color="#00DF82--text">
