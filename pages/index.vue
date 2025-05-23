@@ -108,7 +108,8 @@
                                                 <div class="container">
                                                     <v-card elevation="0">
                                                         <div>
-                                                            <v-carousel height="300" hide-delimiters :show-arrows="false" cycle continuous>
+                                                            <v-carousel height="300"  :show-arrows="false"
+      delimiter-icon="mdi-minus">
                                                                 <div>
                                                                     <v-chip v-show="all_product.discount_state" color="red" style="color:white">{{ all_product.discount+" %" }}</v-chip>
 

@@ -636,13 +636,7 @@ export default {
         this.snackbarText2 = "Provide category";
       } else if (this.posterUrl == "") {
         this.snackbar2 = true;
-        this.snackbarText2 = "Provide a item image 2";
-      } else if (this.posterUrl2 == "") {
-        this.snackbar2 = true;
-        this.snackbarText2 = "Provide a item image";
-      } else if (this.posterUrl3 == "") {
-        this.snackbar2 = true;
-        this.snackbarText2 = "Provide a item image 3";
+        this.snackbarText2 = "Provide a item image ";
       } else if (this.cloth_name == "") {
         this.snackbar2 = true;
         this.snackbarText2 = "Provide a item name";
